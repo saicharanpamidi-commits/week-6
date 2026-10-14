@@ -1,7 +1,13 @@
 """A small class for pulling artist data from the Genius API."""
 
+import os
+
 import pandas as pd
 import requests
+from dotenv import load_dotenv
+
+# read ACCESS_TOKEN from the .env file next to this module, if there is one
+load_dotenv()
 
 
 class Genius:
@@ -14,8 +20,15 @@ class Genius:
 
     base_url = "https://api.genius.com"
 
-    def __init__(self, access_token):
-        """Store the access token used for every request."""
+    def __init__(self, access_token=None):
+        """Store the access token used for every request.
+
+        If no token is passed in, use ACCESS_TOKEN from the environment
+        (loaded from the .env file).
+        """
+        if access_token is None:
+            access_token = os.environ["ACCESS_TOKEN"]
+
         self.access_token = access_token
 
     def _get(self, path, params=None):
