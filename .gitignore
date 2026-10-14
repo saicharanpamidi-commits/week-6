@@ -29,3 +29,4 @@ cython_debug/
 .env
 .vscode/
 temp.json
+.venv/
